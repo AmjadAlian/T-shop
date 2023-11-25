@@ -1,0 +1,29 @@
+.signUp {
+    padding: 20px;
+    background-color: rgb(83, 12, 124);
+
+
+}
+
+.signUp-form {
+    background-color: #fff;
+    border-radius: 2%;
+    -webkit-border-radius: 2%;
+    -moz-border-radius: 2%;
+    -ms-border-radius: 2%;
+    -o-border-radius: 2%;
+    box-shadow: 2px 2px 20px 20px rgba(177, 95, 177, 0.2);
+    padding: 20px;
+    width: 21%;
+}
+
+.input {
+    box-shadow: 2px 2px 15px 1px rgba(29, 18, 185, 0.507);
+    
+}
+
+.btn {
+    background-color: rgb(26, 89, 207);
+    border: solid 1px rgba(26, 89, 207, 0.4) !important;
+    color: #fff;
+}
