@@ -3,7 +3,6 @@ import Input from '../../pages/Input.jsx'
 import { useFormik } from 'formik';
 import { registerSchema } from '../../auth/validate.js';
 import { toast } from 'react-toastify';
-
 import axios from 'axios';
 export default function Register() {
     const initialValues = {
@@ -22,12 +21,12 @@ export default function Register() {
         formData.append('email', users.email);
         formData.append('password', users.password);
         formData.append('image', users.image);
-        const { data } = await axios.post(`https://ecommerce-node4.vercel.app/auth/signup`, formData);
+        const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/auth/signup`, formData);
         if (data.message == 'success') {
             formik.resetForm();
             toast.success(' Account Created Successfully , Verify Your Email!', {
                 position: "top-right",
-                autoClose: 5000,
+                autoClose: false,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -83,16 +82,15 @@ export default function Register() {
     );
     return (
         <>
-            <div className=" signUp">
+            <div className=" signUp vh-100 d-flex justify-content-center align-items-center">
                 
-                <div className="  signUp-form m-auto mt-5">
+                <div className="  signUp-form  ">
                 <h2 className='text-center mb-4'>Sign Up</h2>
                     <form onSubmit={formik.handleSubmit} encType='multipart/form-data'>
                         {renderInput}
                         <button type='submit ' className="btn form-control" disabled={!formik.isValid}>Sign Up</button>
                     </form>
                 </div>
-
             </div>
         </>
     )

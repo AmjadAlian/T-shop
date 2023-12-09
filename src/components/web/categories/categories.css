@@ -1,0 +1,33 @@
+.swiper {
+    padding: 50px;
+}
+
+
+.swiper-button-prev:after,
+.swiper-button-next:after {
+    font-size: 22px !important;
+    color: black;
+}
+
+.swiper-button-next,
+.swiper-rtl .swiper-button-prev,
+.swiper-button-prev,
+.swiper-rtl .swiper-button-next {
+    background-color: wheat;
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 50% !important;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+}
+
+.swiper-custom-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    font-size: 20px;
+}
+

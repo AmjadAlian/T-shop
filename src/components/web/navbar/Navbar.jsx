@@ -1,10 +1,20 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-
+import React, { useContext, useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { UserContext } from '../context/UserContext.jsx';
+import './navbar.css'
 export default function Navbar() {
+  const navigate = useNavigate();
+  let { userToken, setUserToken, userData, setUserData, cartQuantity, setQuantity } = useContext(UserContext);
+  const logout = () => {
+    localStorage.removeItem('userToken');
+    setUserToken(null);
+    setUserData(null);
+    navigate('/');
+  }
+
   return (
     <>
-      <nav className="navbar navbar-expand-lg bg-body-tertiary">
+      <nav className="navbar  navbar-expand-lg bg-info">
         <div className="container">
           <a className="navbar-brand" href="#">T Shop</a>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -13,29 +23,32 @@ export default function Navbar() {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav m-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <a className="nav-link active" aria-current="page" href="#">Home</a>
+                <Link className="nav-link active" aria-current="page" to="/">Home</Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link " aria-current="page" href="#">Categories</a>
-
+                <Link className="nav-link " aria-current="page" to="categories">Categories</Link>
               </li>
               <li className="nav-item">
                 <a className="nav-link " aria-current="page" href="#">Products</a>
               </li>
-
-
+              {userToken ? <li className="nav-item ">
+                <Link className="nav-link  cart position-relative" aria-current="page" to="/cart"><span className=''>{cartQuantity}</span>Cart</Link>
+              </li> : null}
             </ul>
             <ul className="navbar-nav ">
               <li className="nav-item dropdown">
                 <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Dropdown
+                  {userData != null ? userData.userName : 'Guest'}
                 </a>
                 <ul className="dropdown-menu">
-                  <li><Link className="dropdown-item" to="/register">register</Link></li>
-                  <li className="dropdown-divider"> </li>
-                  <li><Link className="dropdown-item" to="/#">login</Link></li>
-                  
-                  
+                  {userToken == null ? <>
+                    <li><Link className="dropdown-item" to="/register">register</Link></li>
+                    <li className="dropdown-divider"> </li>
+                    <li><Link className="dropdown-item" to="/login">login</Link></li>
+                  </> : <>
+                    <li><Link className="dropdown-item" to="/profile">profile</Link></li>
+                    <li className="dropdown-divider"> </li>
+                    <li><Link className="dropdown-item" onClick={logout}>logout</Link></li></>}
                 </ul>
               </li>
             </ul>
