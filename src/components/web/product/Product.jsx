@@ -3,7 +3,6 @@ import React, { useContext } from 'react'
 import './product.css'
 import { useQuery } from 'react-query'
 import { useParams } from 'react-router-dom';
-import ReactImageMagnify from 'react-image-magnify';
 import { CartContext } from '../cart/CartContext.jsx';
 import { UserContext } from '../context/UserContext.jsx';
 export default function Product() {
@@ -35,20 +34,9 @@ export default function Product() {
                             <div className="sub-images p-0 m-0 mt-3 d-flex justify-content-between">
                                 {data.subImages.map((image, index) =>
                                     <div className="image" key={index}>
-                                        <ReactImageMagnify {...{
-                                            smallImage: {
-                                                alt: 'Wristwatch by Ted Baker London',
-                                                isFluidWidth: true,
-                                                src: image.secure_url
-                                            },
-                                            largeImage: {
-                                                src: image.secure_url,
-                                                width: 350,
-                                                height: 350
-                                            },
-                                            enlargedImagePosition: 'over',
-                                        }} />
+                                        <img src={image.secure_url} alt=" product-image" />
                                     </div>
+
                                 )}
                             </div>
                         </div>
