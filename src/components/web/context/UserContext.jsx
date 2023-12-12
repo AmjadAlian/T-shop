@@ -14,7 +14,7 @@ export function UserContextProvider({ children }) {
     }
     const getProductQuantity = async () => {
         const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/cart`, { headers: { authorization: `Tariq__${userToken}` } });
-        setQuantity(data.count);
+        setQuantity(data?.count);
     }
 
 

@@ -25,7 +25,7 @@ export default function Cart() {
         return remove;
     }
     let subtotal = 0;
-    data?.products.map((product) => {
+    data?.products?.map((product) => {
         subtotal += (product.quantity * product.details.price);
     })
     
