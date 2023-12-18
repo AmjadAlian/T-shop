@@ -37,6 +37,7 @@ export function CartContextProvider({ children }) {
         }
     }
     const removeCartContext = async (productId) => {
+        console.log(productId);
         try {
             const token = localStorage.getItem('userToken');
             const { data } = await axios.patch(`${import.meta.env.VITE_API_URL}/cart/removeItem`, { productId },
@@ -47,14 +48,39 @@ export function CartContextProvider({ children }) {
             return error;
         }
     }
-  
-    
-    
-    
-
-
-
-    return <CartContext.Provider value={{ addToCartContext, getCartContext, removeCartContext,  }}>
+    const increaseQuantityContext = async (productId) => {
+        const token = localStorage.getItem('userToken');
+        const { data } = await axios.patch(`${import.meta.env.VITE_API_URL}/cart/incraseQuantity`, { productId }, { headers: { Authorization: `Tariq__${token}` } });
+        if (data.message == 'success') {
+            toast.success(' Item Added Successfully ', {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+        }
+    }
+    const decreaseQuantityContext = async (productId) => {
+        const token = localStorage.getItem('userToken');
+        const { data } = await axios.patch(`${import.meta.env.VITE_API_URL}/cart/decraseQuantity`, { productId }, { headers: { Authorization: `Tariq__${token}` } });
+        if (data.message == 'success') {
+            toast.success(' Item Deleted Successfully ', {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+        }
+    }
+    return <CartContext.Provider value={{ addToCartContext, getCartContext, removeCartContext, increaseQuantityContext, decreaseQuantityContext }}>
         {children}
     </CartContext.Provider>;
 

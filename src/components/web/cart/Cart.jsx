@@ -1,14 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './cart.css'
 import { useContext } from 'react'
 import { CartContext } from './CartContext.jsx'
 import { useQuery } from 'react-query';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from '../context/UserContext.jsx';
+import axios from 'axios';
 export default function Cart() {
     const navigate = useNavigate();
-    const { getCartContext, removeCartContext } = useContext(CartContext);
-    const { getProductQuantity } = useContext(UserContext);
+    const { getCartContext, removeCartContext, increaseQuantityContext, decreaseQuantityContext } = useContext(CartContext);
+    const { getProductQuantity, userToken ,cartQuantity} = useContext(UserContext);
 
     const getCard = async () => {
         const card = await getCartContext();
@@ -24,18 +25,31 @@ export default function Cart() {
         getProductQuantity();
         return remove;
     }
+    const increaseQuantity = async (productId) => {
+        let increase = await increaseQuantityContext(productId);
+        return increase;
+    }
+    const decreaseQuantity = async (productId) => {
+        let increase = await decreaseQuantityContext(productId);
+        return increase;
+    }
     let subtotal = 0;
     data?.products?.map((product) => {
         subtotal += (product.quantity * product.details.price);
     })
-    
+    const clearData = async () => {
+        const { data } = await axios.patch(`${import.meta.env.VITE_API_URL}/cart/clear`, {}, { headers: { Authorization: `Tariq__${userToken}` } });
+        console.log(data);
+
+    }
+
     return (
         <>
             <div className="cart">
                 <div className="container">
                     <div className="row">
                         <div className="cart-items">
-                            <div className="products" id="products">
+                            <div className="products position-relative" id="products">
                                 <div className="item">
                                     <div className="product-info">
                                         <h2>Product</h2>
@@ -50,9 +64,8 @@ export default function Cart() {
                                         <h2>Subtotal</h2>
                                     </div>
                                 </div>
-                                {data?.products ? (data.products.map((product) =>
 
-                                
+                                {data?.products ? (data.products.map((product) =>
                                     <div className="item" key={product._id}>
                                         <div className="product-info">
                                             <img src={product.details.mainImage.secure_url} />
@@ -79,7 +92,25 @@ export default function Cart() {
                                             </div>
                                         </div>
                                         <div className="quantity">
-                                            <button>
+
+                                            <button onClick={() => increaseQuantity(product.productId)}>
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    width={16}
+                                                    height={17}
+                                                    viewBox="0 0 16 17"
+                                                    fill="none"
+                                                >
+                                                    <path
+                                                        fillRule="evenodd"
+                                                        clipRule="evenodd"
+                                                        d="M8.37565 3.83333C8.37565 3.62622 8.20776 3.45833 8.00065 3.45833C7.79354 3.45833 7.62565 3.62622 7.62565 3.83333V8.125H3.33398C3.12688 8.125 2.95898 8.29289 2.95898 8.5C2.95898 8.7071 3.12688 8.875 3.33398 8.875H7.62565V13.1667C7.62565 13.3738 7.79354 13.5417 8.00065 13.5417C8.20776 13.5417 8.37565 13.3738 8.37565 13.1667V8.875H12.6673C12.8744 8.875 13.0423 8.7071 13.0423 8.5C13.0423 8.29289 12.8744 8.125 12.6673 8.125H8.37565V3.83333Z"
+                                                        fill="#121212"
+                                                    />
+                                                </svg>
+                                            </button>
+                                            <span>{product.quantity}</span>
+                                            <button onClick={() => decreaseQuantity(product.productId)}>
                                                 <svg
                                                     xmlns="http://www.w3.org/2000/svg"
                                                     width={16}
@@ -96,23 +127,6 @@ export default function Cart() {
                                                     />
                                                 </svg>
                                             </button>
-                                            <span>{product.quantity}</span>
-                                            <button>
-                                                <svg
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    width={16}
-                                                    height={17}
-                                                    viewBox="0 0 16 17"
-                                                    fill="none"
-                                                >
-                                                    <path
-                                                        fillRule="evenodd"
-                                                        clipRule="evenodd"
-                                                        d="M8.37565 3.83333C8.37565 3.62622 8.20776 3.45833 8.00065 3.45833C7.79354 3.45833 7.62565 3.62622 7.62565 3.83333V8.125H3.33398C3.12688 8.125 2.95898 8.29289 2.95898 8.5C2.95898 8.7071 3.12688 8.875 3.33398 8.875H7.62565V13.1667C7.62565 13.3738 7.79354 13.5417 8.00065 13.5417C8.20776 13.5417 8.37565 13.3738 8.37565 13.1667V8.875H12.6673C12.8744 8.875 13.0423 8.7071 13.0423 8.5C13.0423 8.29289 12.8744 8.125 12.6673 8.125H8.37565V3.83333Z"
-                                                        fill="#121212"
-                                                    />
-                                                </svg>
-                                            </button>
                                         </div>
                                         <div className="price">${product.details.price}</div>
                                         <div className="subtotal">${product.quantity * product.details.price}</div>
@@ -120,7 +134,13 @@ export default function Cart() {
 
                                 )
                                 ) : <h2>empty cart</h2>}
+                                <div className="clear-products position-absolute">
+                                    <button className='btn' onClick={clearData}>clear data</button>
+                                    <div>
 
+
+                                    </div>
+                                </div>
                             </div>
                             <div className="cart-summary">
                                 <h2>Cart summary</h2>
@@ -152,7 +172,7 @@ export default function Cart() {
                                         <span>$1345.00</span>
                                     </div>
                                     <div className="checkout">
-                                        <a href="#">Chekout</a>
+                                        <Link className='btn' to='/createOrder'>Chekout</Link>
                                     </div>
                                 </div>
                             </div>

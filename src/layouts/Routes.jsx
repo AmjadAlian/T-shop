@@ -14,6 +14,10 @@ import ProtectedRoute from "../components/web/protectedRoute/ProtectedRoute.jsx"
 import Profile from "../components/web/profile/Profile.jsx";
 import SendCode from "../components/web/authForgot/SendCode.jsx";
 import ForgotPassword from "../components/web/authForgot/ForgotPassword.jsx";
+import UserInfo from "../components/web/profile/UserInfo.jsx";
+import UserContact from "../components/web/profile/UserContact.jsx";
+import Order from "../components/web/profile/Order.jsx";
+import CreateOrder from "../components/web/profile/createOrder.jsx";
 
 export const router = createBrowserRouter([
     {
@@ -29,12 +33,12 @@ export const router = createBrowserRouter([
                 element: <Login />
             },
             {
-                path:'sendcode',
-                element: <SendCode/>
+                path: 'sendcode',
+                element: <SendCode />
             },
             {
-                path:'forgotpassword',
-                element:<ForgotPassword/>
+                path: 'forgotpassword',
+                element: <ForgotPassword />
             },
             {
                 path: '/',
@@ -61,8 +65,33 @@ export const router = createBrowserRouter([
                     </ProtectedRoute>
             },
             {
-            path: 'profile',
-            element: <Profile/>
+                path: 'createOrder',
+                element: 
+                <ProtectedRoute>
+                    <CreateOrder />
+                </ProtectedRoute>
+            },
+            {
+                path: 'profile',
+                element:
+                    <ProtectedRoute>
+                        <Profile />
+                    </ProtectedRoute>,
+                children: [
+                    {
+                        index: true,
+                        element: <UserInfo />
+                    },
+                    {
+                        path: 'contact',
+                        element: <UserContact />
+                    },
+                    {
+                        path: 'orders',
+                        element: <Order />
+                    },
+
+                ]
             },
             {
                 path: '*',
