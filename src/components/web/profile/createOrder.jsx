@@ -9,7 +9,7 @@ import { OrderSchema } from '../../auth/validate.js';
 
 export default function CreateOrder() {
     const navigate = useNavigate();
-    let { userToken, cartQuantity ,getProductQuantity} = useContext(UserContext);
+    let { userToken, cartQuantity, getProductQuantity } = useContext(UserContext);
 
     const initialValues = {
         couponName: '',
@@ -21,7 +21,7 @@ export default function CreateOrder() {
         const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/order`, users, { headers: { authorization: `Tariq__${userToken}` } });
         console.log(data);
         if (data.message == 'success') {
-            toast.success(' Log In Successfully!', {
+            toast.success(' Order Created Successfully!', {
                 position: "top-right",
                 autoClose: 3000,
                 hideProgressBar: false,
@@ -73,7 +73,7 @@ export default function CreateOrder() {
                     <h2 className='text-center mb-4'>Create Order</h2>
                     <form onSubmit={formik.handleSubmit}>
                         {renderInput}
-                        <button type='submit' className="btn form-control" disabled={!formik.isValid ||cartQuantity==0}>Submit</button>
+                        <button type='submit' className="btn form-control" disabled={!formik.isValid || cartQuantity == 0}>Submit</button>
                     </form>
                 </div>
             </div>
