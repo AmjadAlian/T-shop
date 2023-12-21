@@ -39,7 +39,7 @@ export default function Cart() {
     })
     const clearData = async () => {
         const { data } = await axios.patch(`${import.meta.env.VITE_API_URL}/cart/clear`, {}, { headers: { Authorization: `Tariq__${userToken}` } });
-        console.log(data);
+        
         getProductQuantity();
 
     }

@@ -7,7 +7,7 @@ export default function UserContact() {
     if (loading) {
         return <h2>... loading</h2>
     }
-    console.log(userData)
+   
     return (
         <>
             <div className="contact">

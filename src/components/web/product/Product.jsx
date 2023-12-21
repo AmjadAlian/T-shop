@@ -18,7 +18,6 @@ export default function Product() {
     };
     const onSubmit = async users => {
         const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/products/${productId}/review`, users, { headers: { Authorization: `Tariq__${userToken}` } });
-        console.log(data);
         if (data.message == 'success') {
             toast.success(' Review Posted Successfully!', {
                 position: "top-right",
@@ -60,7 +59,7 @@ export default function Product() {
         <Input type={ele.type} key={index} name={ele.name} id={ele.id} value={ele.value} placeholder={ele.name} onChange={formik.handleChange} errors={formik.errors} onBlur={formik.handleBlur} touched={formik.touched} />
     );
 
-    console.log(userToken);
+    
 
 
     const getProduct = async () => {
@@ -68,14 +67,14 @@ export default function Product() {
         return data.product;
     }
     const { data, isLoading } = useQuery("product_details", getProduct);
-    console.log(data);
+    
     if (isLoading) {
         return <p>loading ...</p>
     }
 
     const addToCart = async (productId) => {
         const res = await addToCartContext(productId);
-        console.log(productId);
+        
         getProductQuantity();
         return res;
     }

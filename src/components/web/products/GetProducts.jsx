@@ -17,10 +17,10 @@ export default function GetProducts() {
     if (isLoading) {
         return <h2>... loading</h2>
     }
-    console.log(data);
+    
     const addToCart = async (productId) => {
         const res = await addToCartContext(productId);
-        console.log(productId);
+        
         getProductQuantity();
         return res;
     }

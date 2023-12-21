@@ -37,7 +37,7 @@ export function CartContextProvider({ children }) {
         }
     }
     const removeCartContext = async (productId) => {
-        console.log(productId);
+        
         try {
             const token = localStorage.getItem('userToken');
             const { data } = await axios.patch(`${import.meta.env.VITE_API_URL}/cart/removeItem`, { productId },

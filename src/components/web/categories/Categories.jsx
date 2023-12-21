@@ -28,7 +28,7 @@ export default function Categories() {
     )
   }
   const x = useContext(CartContext);
-  console.log(x);
+  
   return (
     <>
       <div className="container">

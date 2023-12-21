@@ -19,7 +19,7 @@ export default function CreateOrder() {
 
     const onSubmit = async users => {
         const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/order`, users, { headers: { authorization: `Tariq__${userToken}` } });
-        console.log(data);
+        
         if (data.message == 'success') {
             toast.success(' Order Created Successfully!', {
                 position: "top-right",
