@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext } from 'react'
 import { UserContext } from '../context/UserContext.jsx';
 import { useQuery } from 'react-query';
 
@@ -7,7 +7,9 @@ export default function Order() {
     let { userToken } = useContext(UserContext);
     const getOrders = async () => {
         const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/order`, { headers: { authorization: `Tariq__${userToken}` } });
+        console.log(data);
         return data.orders;
+
     }
     const { data, isLoading } = useQuery('orders', getOrders);
     if (isLoading) {

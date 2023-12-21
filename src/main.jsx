@@ -8,7 +8,7 @@ import './index.css'
 import App from './App.jsx'
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { UserContextProvider } from './components/web/context/UserContext.jsx';
-
+import '@fortawesome/fontawesome-free/css/all.css'
 const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById('root')).render(

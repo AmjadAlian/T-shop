@@ -4,7 +4,7 @@ import { UserContext } from '../context/UserContext.jsx';
 import './navbar.css'
 export default function Navbar() {
   const navigate = useNavigate();
-  let { userToken, setUserToken, userData, setUserData, cartQuantity, setQuantity } = useContext(UserContext);
+  let { userToken, setUserToken, userData, setUserData, cartQuantity } = useContext(UserContext);
   const logout = () => {
     localStorage.removeItem('userToken');
     setUserToken(null);
@@ -29,7 +29,7 @@ export default function Navbar() {
                 <Link className="nav-link " aria-current="page" to="categories">Categories</Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link " aria-current="page" href="#">Products</a>
+                <Link className="nav-link " aria-current="page" to="products">Products</Link>
               </li>
               {userToken ? <li className="nav-item ">
                 <Link className="nav-link  cart position-relative" aria-current="page" to="/cart"><span className=''>{cartQuantity}</span>Cart</Link>

@@ -18,6 +18,8 @@ import UserInfo from "../components/web/profile/UserInfo.jsx";
 import UserContact from "../components/web/profile/UserContact.jsx";
 import Order from "../components/web/profile/Order.jsx";
 import CreateOrder from "../components/web/profile/createOrder.jsx";
+import Products from "../components/web/products/Products.jsx";
+import GetProducts from "../components/web/products/GetProducts.jsx";
 
 export const router = createBrowserRouter([
     {
@@ -47,6 +49,18 @@ export const router = createBrowserRouter([
             {
                 path: 'categories',
                 element: <Categories />
+            },
+            {
+                path:'products',
+                element:<Products/>,
+                children:[
+                    {
+                        index:true,
+                        element:<GetProducts/>
+                    },
+                   
+                ]
+                
             },
             {
                 path: "products/category/:categoryId",
