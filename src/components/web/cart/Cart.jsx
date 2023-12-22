@@ -35,7 +35,7 @@ export default function Cart() {
     }
     let subtotal = 0;
     data?.products?.map((product) => {
-        subtotal += (product.quantity * product.details.price);
+        subtotal += (product.quantity * product.details.finalPrice);
     })
     const clearData = async () => {
         const { data } = await axios.patch(`${import.meta.env.VITE_API_URL}/cart/clear`, {}, { headers: { Authorization: `Tariq__${userToken}` } });
@@ -129,8 +129,8 @@ export default function Cart() {
                                                 </svg>
                                             </button>
                                         </div>
-                                        <div className="price">${product.details.price}</div>
-                                        <div className="subtotal">${product.quantity * product.details.price}</div>
+                                        <div className="price">${product.details.finalPrice}</div>
+                                        <div className="subtotal">${product.quantity * product.details.finalPrice}</div>
                                     </div>
 
                                 )
@@ -164,13 +164,10 @@ export default function Cart() {
                                         </div>
                                         <span>%21.00</span>
                                     </div>
+                                    
                                     <div className="summary-footer">
-                                        <label>Subtotal</label>
+                                        <label className="total">Total:</label>
                                         <span>${subtotal}</span>
-                                    </div>
-                                    <div className="summary-footer">
-                                        <label className="total">Total</label>
-                                        <span>$1345.00</span>
                                     </div>
                                     <div className="checkout">
                                         <Link className='btn' to='/createOrder'>Chekout</Link>

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import './product.css'
 import { useQuery } from 'react-query'
 import { useParams } from 'react-router-dom';
@@ -59,22 +59,20 @@ export default function Product() {
         <Input type={ele.type} key={index} name={ele.name} id={ele.id} value={ele.value} placeholder={ele.name} onChange={formik.handleChange} errors={formik.errors} onBlur={formik.handleBlur} touched={formik.touched} />
     );
 
-    
-
 
     const getProduct = async () => {
         const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/products/${productId}`);
         return data.product;
     }
     const { data, isLoading } = useQuery("product_details", getProduct);
-    
+
     if (isLoading) {
         return <p>loading ...</p>
     }
 
     const addToCart = async (productId) => {
         const res = await addToCartContext(productId);
-        
+
         getProductQuantity();
         return res;
     }
@@ -96,12 +94,44 @@ export default function Product() {
                                 </div>
                             </div>
                         </div>
-                        <div className="details-section mt-5 col-md12 col-lg-7">
+                        <div className="details-section mt-5 pt-5 col-md12 col-lg-7">
                             <div className="details">
-                                <h2>{data.name}</h2>
-                                <p className='fs-2'>${data.price}
-                                </p>
-                                <div className="submit">
+                                <div className='star-rating mb-2 d-flex align-items-center'>
+                                    <i class="fa-solid fa-star text-danger"></i>
+                                    <i class="fa-solid fa-star text-danger"></i>
+                                    <i class="fa-solid fa-star text-danger"></i>
+                                    <i class="fa-solid fa-star text-danger"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <div className="number-views ms-2 ">
+                                        <p className='m-0 p-0'>({data.reviews.length} customer reviews).</p>
+                                    </div>
+                                </div>
+                                <div className="name">
+
+                                    <h2>{data.name}.</h2>
+                                </div>
+                                {data.price == data.finalPrice ? <div className="product-price border-bottom pb-4 mb-3">
+                                    <span className=' fs-2'>${data.price}
+                                    </span>
+                                </div> :
+
+                                    <div className="product-price border-bottom pb-4 mb-3 d-flex align-items-center">
+                                        <div className=''>
+                                            <span className='back-price'>${data.price}.00
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <span className='final-price ps-1'>${data.finalPrice}.00</span>
+                                        </div>
+
+                                        <div className="product-label">
+                                            <span className='d-block'>- {(data.price - data.finalPrice) / (data.price) * 100}%</span>
+                                        </div>
+                                    </div>}
+                                <div className="product-description">
+                                    <p>{data.description}</p>
+                                </div>
+                                <div className="submit border-bottom pb-5">
                                     <div className="d-grid gap-2 d-flex ">
                                         <div className="quantity p-4 position-relative">
                                             <p className=' num-quantity'>1</p>
@@ -110,7 +140,31 @@ export default function Product() {
                                                 <button className='minus'>-</button>
                                             </div>
                                         </div>
-                                        <button className="btn btn-primary w-100" type="submit" onClick={() => addToCart(data._id)}>ADD TO CART</button>
+                                        <div className="add-btn w-100">
+
+                                            <button className=" w-100" type="submit" onClick={() => addToCart(data._id)}>ADD TO CART</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="stock  mt-4">
+                                
+                                    <p className='p-0 m-0'>In Stock: <span>{data.stock}</span>.</p>
+                                </div>
+                                <div className="social-media-share mt-2 w-25 d-flex justify-content-around">
+                                    <div>
+                                        <span>Share: </span>
+                                    </div>
+                                    <div>
+                                        <a href="https://www.facebook.com/" target='_blank'><i class="fa-brands fa-facebook-f"></i></a>
+                                    </div>
+                                    <div>
+                                        <a href="https://twitter.com/" target='_blank'> <i class="fa-brands fa-x-twitter"></i></a>
+                                    </div>
+                                    <div>
+                                        <a href="https://www.linkedin.com/" target='_blank'> <i class="fa-brands fa-linkedin-in"></i></a>
+                                    </div>
+                                    <div>
+                                        <a href="https://www.pinterest.com/" target='_blank'> <i class="fa-brands fa-pinterest"></i></a>
                                     </div>
                                 </div>
                             </div>

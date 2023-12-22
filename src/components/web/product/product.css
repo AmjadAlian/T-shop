@@ -1,13 +1,15 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
 /* font name Bebas Neue */
-.image{
+.image {
     max-width: 150px;
 }
-.num-quantity{
+
+.num-quantity {
     line-height: 0.6;
 }
-.main-image img{
+
+.main-image img {
     width: 100%;
 }
 
@@ -15,21 +17,22 @@
     width: 80%;
     margin-left: auto;
 }
-.quantity{
+
+.quantity {
     display: inline-block;
-    width: 125px;
+    width: 125px !important;
     border: solid 2px #9b9b9b;
     line-height: 10px;
-    height: 60px;
+    height: 64px;
     text-align: center;
     padding: 0 38px;
     font-weight: 500;
-    
+
 }
 
-.plus{
+.plus {
     position: absolute;
-    top: -4px;
+    top: -3px;
     left: -5px;
     background-color: transparent;
     border: none;
@@ -39,7 +42,8 @@
     color: #9b9b9b;
     font-weight: 700;
 }
-.minus{
+
+.minus {
     position: absolute;
     top: -4px;
     right: -5px;
@@ -52,7 +56,7 @@
     background-color: transparent;
 }
 
-.btn-primary{
+.btn-primary {
     background-color: #222;
     border-radius: 0%;
     -webkit-border-radius: 0%;
@@ -66,20 +70,21 @@
     -o-transition: 0.8s;
 }
 
-.btn-primary:hover{
+.btn-primary:hover {
     background-color: red;
 }
 
-.reviews .review-title h2{
+.reviews .review-title h2 {
     font-size: 30px;
     font-weight: 500;
-    font-family: "Bebas Neue",cursive;
+    font-family: "Bebas Neue", cursive;
     color: #222;
     position: relative;
     width: fit-content;
-    
+
 }
-.reviews .review-title h2::before{
+
+.reviews .review-title h2::before {
     content: '';
     position: absolute;
     height: 2px;
@@ -89,9 +94,9 @@
     background-color: #222;
 }
 
-.reviews .product-review p{
+.reviews .product-review p {
     font-size: 25px;
-    font-family: Bebas Neue,cursive;
+    font-family: Bebas Neue, cursive;
     color: #222;
 }
 
@@ -101,14 +106,14 @@
     position: relative;
 }
 
-.reviews .product-reviews .review .star-rating{
+.reviews .product-reviews .review .star-rating {
     top: 15px;
     right: 25px;
     font-size: 11px;
     letter-spacing: 1.5px;
 }
 
-.reviews .product-reviews .review .client-info .client-image img{
+.reviews .product-reviews .review .client-info .client-image img {
     width: 60px;
     height: 60px;
     border-radius: 50%;
@@ -118,48 +123,50 @@
     -o-border-radius: 50%;
 }
 
-.reviews .product-reviews .review .client-info .client-name{
-    font-family: "Bebas Neue",cursive;
+.reviews .product-reviews .review .client-info .client-name {
+    font-family: "Bebas Neue", cursive;
     font-size: 14px;
     color: #222;
     letter-spacing: 2px;
     margin: 0 0 -3px;
 }
 
-.reviews .product-reviews .review .client-info .review-date p{
+.reviews .product-reviews .review .client-info .review-date p {
     font-size: 12px;
     color: #9b9b9b;
 }
 
-.reviews .product-reviews .review .review-description p{
+.reviews .product-reviews .review .review-description p {
     font-size: 15px;
     color: #222;
     margin: 10px 0 0;
     font-weight: bold;
 }
 
-.reviews .add-review .add-review-content{
+.reviews .add-review .add-review-content {
     color: #222;
     font-size: 14px;
     margin-bottom: 40px;
     border: 2px solid #222;
-   width: fit-content;
+    width: fit-content;
     padding: 15px 35px;
-    font-family: "Bebas Neue",cursive;
+    font-family: "Bebas Neue", cursive;
     letter-spacing: 2px;
-} 
-.reviews .add-review .add-review-content i {
-    font-size: 20px;
-   
 }
 
-.reviews .add-review .row .review-comment textarea{
+.reviews .add-review .add-review-content i {
+    font-size: 20px;
+
+}
+
+.reviews .add-review .row .review-comment textarea {
     background: #fff;
     padding: 14px 20px;
     border: 1px solid #d6d6d6;
     font-size: 14px;
 }
-.reviews .add-review .row .rating-box input{
+
+.reviews .add-review .row .rating-box input {
     background: #fff;
     padding: 14px 20px;
     border: 1px solid #d6d6d6;
@@ -171,16 +178,17 @@
     -o-border-radius: 0;
     font-size: 14px;
 }
-.reviews .add-review .row .submit-button button{
+
+.reviews .add-review .row .submit-button button {
     background-color: #fff;
     color: #222;
-    font-family: "Bebas Neue",cursive;
+    font-family: "Bebas Neue", cursive;
     border: 1px solid #222;
-    border-radius: 0!important;
-    -webkit-border-radius: 0!important;
-    -moz-border-radius: 0!important;
-    -ms-border-radius: 0!important;
-    -o-border-radius: 0!important;
+    border-radius: 0 !important;
+    -webkit-border-radius: 0 !important;
+    -moz-border-radius: 0 !important;
+    -ms-border-radius: 0 !important;
+    -o-border-radius: 0 !important;
     padding: 0 50px;
     height: 57px;
     margin-top: 5.5px;
@@ -190,20 +198,174 @@
     -ms-transition: .4s;
     -o-transition: .4s;
 }
-.reviews .add-review .row .rating-box input::placeholder{
-    color:#d6d6d6;
+
+.reviews .add-review .row .rating-box input::placeholder {
+    color: #d6d6d6;
 }
-.reviews .add-review .row .review-comment textarea:focus{
+
+.reviews .add-review .row .review-comment textarea:focus {
     outline: 0;
 }
-.reviews .add-review .row .rating-box input:focus{
+
+.reviews .add-review .row .rating-box input:focus {
     outline: 0;
 }
-.reviews .add-review .row .review-comment textarea::placeholder{
-color: #d6d6d6;
+
+.reviews .add-review .row .review-comment textarea::placeholder {
+    color: #d6d6d6;
 }
-.reviews .add-review .row .submit-button button:hover{
+
+.reviews .add-review .row .submit-button button:hover {
     background-color: red;
     border: none;
     color: #fff;
+}
+
+
+.details-section .details .name h2 {
+    font-size: 40px;
+    line-height: 1.3;
+    color: #222;
+    word-break: break-word;
+    font-family: "Bebas Neue", cursive;
+}
+
+.details-section .details .product-price {
+    font-size: 30px;
+    color: #222;
+    font-family: "Bebas Neue", cursive;
+    font-weight: 400;
+}
+
+.details-section .details .product-description p {
+    font-size: 13px;
+    color: #9b9b9b;
+}
+
+.details-section .details .submit .add-btn button {
+    display: inline-block;
+    background-color: #222;
+    position: relative;
+    height: 64px;
+    line-height: 64px;
+    font-size: 20px;
+    padding: 0 15px;
+    color: #fff;
+    vertical-align: top;
+    cursor: pointer;
+    flex: 1;
+    margin: 0;
+    letter-spacing: 1px;
+    font-family: "Bebas Neue", cursive;
+    border: none;
+    transition: .5s;
+    -webkit-transition: .5s;
+    -moz-transition: .5s;
+    -ms-transition: .5s;
+    -o-transition: .5s;
+}
+
+.details-section .details .submit .add-btn button:hover {
+    background-color: red;
+
+}
+
+.back-price {
+    font-size: 20px !important;
+    font-family: "Bebas Neue", cursive;
+    color: #9b9b9b;
+    text-decoration: line-through;
+    line-height: 12px;
+}
+
+.final-price {
+    font-size: 30px;
+    color: #222;
+    font-family: "Bebas Neue", cursive;
+    font-weight: 400;
+}
+
+.product-label {
+    position: relative;
+    font-size: 14px;
+    text-transform: uppercase;
+    background: 0 0;
+    border: 2px solid #ff3535;
+    border-right: 0;
+    color: #ff3535;
+    line-height: 22px;
+    top: -3px;
+    left: 0;
+    padding: 0 2px 0 10px;
+    z-index: 2;
+    margin-left: 12px;
+    height: fit-content;
+    width: 50px;
+    text-align: center;
+}
+
+.product-label::before {
+    content: "";
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    right: -20px;
+    border: 13px solid #ff3535;
+    border-right-color: transparent;
+    top: -2px;
+    display: inline-block !important;
+    z-index: -2;
+    background-color: transparent;
+}
+
+.product-label::after {
+    content: "";
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    right: -15px;
+    border: 11px solid #fff;
+    border-right-color: transparent;
+    top: 0;
+    z-index: -1;
+}
+
+.details .number-views p {
+    color: #9b9b9b;
+    font-size: 14px;
+    letter-spacing: 0;
+}
+
+.details-section .details>.star-rating {
+    font-size: 12px;
+    letter-spacing: 4.8px;
+    color: #222;
+}
+
+.social-media-share a {
+    color: #222;
+    font-size: 13px;
+}
+
+.social-media-share a:hover {
+    color: red;
+}
+
+.social-media-share span {
+    font-size: 14px;
+    color: #9b9b9b;
+    font-weight: 500;
+}
+.stock{
+    padding-left: 6px;
+}
+.stock p{
+    font-size: 14px;
+    color: #9b9b9b;
+    font-weight: 500;
+}
+
+.stock p > span{
+    color: #222;
+    font-weight: bold;
 }

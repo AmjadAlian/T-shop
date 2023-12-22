@@ -346,9 +346,6 @@ textarea.form-control {
     height: auto;
 }
 
-.form-group {
-    margin-bottom: 1.5rem;
-}
 
 .form-inline {
     display: flex;
