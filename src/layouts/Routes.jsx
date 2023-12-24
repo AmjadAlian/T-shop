@@ -19,7 +19,6 @@ import UserContact from "../components/web/profile/UserContact.jsx";
 import Order from "../components/web/profile/Order.jsx";
 import CreateOrder from "../components/web/profile/createOrder.jsx";
 import Products from "../components/web/products/Products.jsx";
-import GetProducts from "../components/web/products/GetProducts.jsx";
 
 export const router = createBrowserRouter([
     {
@@ -51,15 +50,11 @@ export const router = createBrowserRouter([
                 element: <Categories />
             },
             {
-                path:'products',
-                element:<Products/>,
-                children:[
-                    {
-                        index:true,
-                        element:<GetProducts/>
-                    },
-                   
-                ]
+                path: 'products',
+                element: <Products />,
+                
+                
+                
                 
             },
             {
@@ -72,7 +67,6 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'cart',
-
                 element:
                     <ProtectedRoute>
                         <Cart />
@@ -80,10 +74,10 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'createOrder',
-                element: 
-                <ProtectedRoute>
-                    <CreateOrder />
-                </ProtectedRoute>
+                element:
+                    <ProtectedRoute>
+                        <CreateOrder />
+                    </ProtectedRoute>
             },
             {
                 path: 'profile',

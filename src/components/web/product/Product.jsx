@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import './product.css'
 import { useQuery } from 'react-query'
 import { useParams } from 'react-router-dom';
