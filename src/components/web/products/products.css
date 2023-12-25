@@ -1,11 +1,11 @@
-.products-info .product-image img{
+.products-info .product-image img {
     width: 330px;
-    
-    height: 396px ;
+
+    height: 396px;
 }
 
 
-.products-info .product-image .buttons-nav{
+.products-info .product-image .buttons-nav {
 
     display: flex;
     position: absolute;
@@ -13,7 +13,7 @@
     bottom: 20px;
     right: 50%;
     background-color: #fff;
-    width: fit-content!important;
+    width: fit-content !important;
     margin: auto;
     text-align: center;
     opacity: 0;
@@ -23,24 +23,27 @@
     -ms-transition: .3s;
     -o-transition: .3s;
 }
-.products-info .product-image .buttons-nav a>i{
+
+.products-info .product-image .buttons-nav a>i {
     color: #222;
     text-align: center;
     width: 50px;
     height: 50px;
     line-height: 50px;
     background-color: #fff;
-    transition:  background-color 0.3s;
-    -webkit-transition:  background-color 0.3s;
-    -moz-transition:  background-color 0.3s;
-    -ms-transition:  background-color 0.3s;
-    -o-transition:  background-color 0.3s;
+    transition: background-color 0.3s;
+    -webkit-transition: background-color 0.3s;
+    -moz-transition: background-color 0.3s;
+    -ms-transition: background-color 0.3s;
+    -o-transition: background-color 0.3s;
 }
-.products-info .product-image .buttons-nav a>i:hover{
+
+.products-info .product-image .buttons-nav a>i:hover {
     background-color: red;
     color: white;
 }
-.products-info .product-image .buttons-nav .icon-col::after{
+
+.products-info .product-image .buttons-nav .icon-col::after {
     content: "";
     width: 1px;
     height: 16px;
@@ -50,34 +53,55 @@
 
 }
 
-.products-info:hover .buttons-nav{
+.products-info:hover .buttons-nav {
     opacity: 1;
 }
 
-.all-products .product-information .desc,.all-products .product-information a {
-    margin:0;
+.all-products .product-information .desc,
+.all-products .product-information a {
+    margin: 0;
     margin-bottom: 5px;
     font-size: 12px;
     color: #222;
     font-weight: 500;
 }
-.all-products .product-information .desc:hover{
+
+.all-products .product-information .desc:hover {
     color: red;
 }
-.all-products .product-information a{
-    color:#a3a3a3 ;
+
+.all-products .product-information a {
+    color: #a3a3a3;
 }
-.all-products .product-information a:hover{
+.all-products .product-information a:hover {
     color: red;
 }
-.all-products .product-information .price{
-    color: #222 ;
+.all-products .product-information .price {
+    color: #222;
     font-weight: bolder;
     font-size: 14px;
 }
-
 .all-products .products-info .star-rating i {
     color: #e1e1e1;
     letter-spacing: 3px;
     font-size: 10px;
+}
+.products-sort {
+    width: 300px;
+    position: relative;
+
+}
+.products-sort select {
+    position: absolute;
+    top: 120px;
+    width: fit-content;
+}
+.products-sort .form form {
+    position: absolute;
+    top: 60px;
+}
+
+.products-sort  .search{
+    position: absolute;
+
 }

@@ -9,7 +9,7 @@ import axios from 'axios';
 export default function Cart() {
     const navigate = useNavigate();
     const { getCartContext, removeCartContext, increaseQuantityContext, decreaseQuantityContext } = useContext(CartContext);
-    const { getProductQuantity, userToken ,cartQuantity} = useContext(UserContext);
+    const { getProductQuantity, userToken } = useContext(UserContext);
 
     const getCard = async () => {
         const card = await getCartContext();
@@ -41,7 +41,7 @@ export default function Cart() {
         const { data } = await axios.patch(`${import.meta.env.VITE_API_URL}/cart/clear`, {}, { headers: { Authorization: `Tariq__${userToken}` } });
         
         getProductQuantity();
-
+        return data;
     }
 
     return (
@@ -50,7 +50,7 @@ export default function Cart() {
                 <div className="container">
                     <div className="row">
                         <div className="cart-items">
-                            <div className="products position-relative" id="products">
+                            <div className="products position-relative w-50" id="products">
                                 <div className="item">
                                     <div className="product-info">
                                         <h2>Product</h2>

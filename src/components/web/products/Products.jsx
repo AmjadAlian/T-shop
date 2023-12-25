@@ -2,24 +2,68 @@ import axios from 'axios'
 import './products.css';
 import { useQuery } from 'react-query';
 import { Link, useLocation } from 'react-router-dom';
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../context/UserContext.jsx';
 import { CartContext } from '../cart/CartContext.jsx';
+import { useFormik } from 'formik';
+import Input from '../../pages/Input.jsx';
 export default function Products() {
     const { addToCartContext } = useContext(CartContext);
     const { getProductQuantity } = useContext(UserContext);
+
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
-    const page = queryParams.get('page');
-    console.log(page);
+    let page = queryParams.get('page');
+
+    const [data, setData] = useState();
+    const [sort, setSort] = useState('');
+    const [from, setFrom] = useState('5');
+    const [to, setTo] = useState('300');
+    const [name, setName] = useState('');
+
+    console.log(name);
     const getAllProducts = async () => {
-        const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/products?page=${page}&limit=4`);
-        return data;
+        const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/products?page=${page}&limit=4&sort=${sort}&price[gte]=${from}&price[lte]=${to}&search=${name}`);
+        setData(data);
     }
+    const initialValues = {
+        from: '',
+        to: '',
+    };
+
+    const onSubmit = (e) => {
+        setFrom(e.from);
+        setTo(e.to);
+    }
+    const formik = useFormik({
+        initialValues,
+
+        onSubmit,
+    });
+    const inputs = [
+        {
+            title: 'from',
+            id: 'from',
+            type: 'text',
+            name: 'from',
+            value: formik.values.from,
+        },
+        {
+            title: 'to',
+            id: "lowPrice",
+            type: 'text',
+            name: 'to',
+            value: formik.values.to
+        },
+    ];
+    const renderInput = inputs.map((ele, index) =>
+        <Input type={ele.type} key={index} name={ele.name} id={ele.id} value={ele.value} placeholder={ele.name} onChange={formik.handleChange} errors={formik.errors} onBlur={formik.handleBlur} touched={formik.touched} />
+    );
+
     useEffect(() => {
         getAllProducts();
-    }, [page]);
-    const { data, isLoading } = useQuery('products', getAllProducts);
+    }, [page, sort, from && to]);
+    const { isLoading } = useQuery('products', getAllProducts);
     if (isLoading) {
         return <h2>... loading</h2>
     }
@@ -28,10 +72,43 @@ export default function Products() {
         getProductQuantity();
         return res;
     }
-
+    const handleSort = (e) => {
+        setSort(e.target.value);
+    }
+    const handelData = (e) => {
+        setName(e.target.value);
+    }
+    const handelSearch = (e) => {
+        e.preventDefault();
+        getAllProducts();
+    }
     return (
         <>
             <div className="all-products w-100 my-5">
+                <aside>
+                    <div className='products-sort ps-2'>
+                        <nav>
+                            <div className="search" >
+                                <form class="d-flex" role="search" onSubmit={handelSearch}>
+                                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" onChange={handelData} />
+                                    <button class="btn btn-outline-success" type="submit">Search</button>
+                                </form>
+                            </div>
+                            <div className="form ">
+                                <form onSubmit={formik.handleSubmit} className='d-flex'>
+                                    {renderInput}
+                                    <button type='submit' className="btn form-control w-25" >Go</button>
+                                </form>
+                                <select class="form-select" aria-label="Default select example" onChange={handleSort}>
+                                    <option selected >Sort by</option>
+                                    <option value="price">price low - heigh</option>
+                                    <option value="-price">price heigh - low</option>
+                                    <option value="name">name</option>
+                                </select>
+                            </div>
+                        </nav>
+                    </div>
+                </aside>
                 <div className="container">
                     <div className="row">
                         {data ? data?.products.map((product, index) =>
@@ -66,10 +143,10 @@ export default function Products() {
                     <nav aria-label="Page navigation example ">
                         <ul className="pagination d-flex justify-content-center mt-4">
                             <li className="page-item"><a className="page-link text-dark" href="#">Previous</a></li>
-                            {Array.from({ length: data.total / data.page }).map((_, index) => (
-                                <li key={index} className="page-item"><Link className="page-link text-dark" to={`?page=${index + 1}`}>{index + 1}</Link></li>
+                            {Array.from({ length: data?.total / data?.page }).map((_, index) => (
+                                <li key={index} className="page-item"><Link className="page-link text-dark" to={`?page=${index + 1}&finalPrice=400`}>{index + 1}</Link></li>
                             ))}
-                            <li className="page-item "><a className="page-link text-dark"  href="#">Next</a></li>
+                            <li className="page-item "><a className="page-link text-dark" href="#">Next</a></li>
                         </ul>
                     </nav>
                 </div>

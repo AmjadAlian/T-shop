@@ -238,6 +238,5 @@ export default function Product() {
                 </div>
             </section>
         </>
-
     )
 }
