@@ -83,11 +83,7 @@
     }
 }
 
-.clear-products { 
-    position: absolute;
-    bottom: 0;
-    
-}
+
 .clear-products button {
     color: #525f7f;
 }

@@ -2,12 +2,13 @@ import React, { useContext } from 'react'
 import './profile.css'
 import { UserContext } from '../context/UserContext.jsx'
 import { Link, Outlet } from 'react-router-dom';
+import Loading from '../../Loading/Loading.jsx';
 export default function Profile() {
 
     let {  loading } = useContext(UserContext);
 
     if (loading) {
-        return <h2>... loading</h2>
+        return <Loading/>
     }
     return (
         <>

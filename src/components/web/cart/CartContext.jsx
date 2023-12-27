@@ -1,11 +1,11 @@
 import axios from "axios";
-import { createContext } from "react";
+import { createContext, useState } from "react";
 import { toast } from "react-toastify";
 
 export const CartContext = createContext(null);
 
 export function CartContextProvider({ children }) {
-
+    const [isLoading,setLoading]= useState(true);
     const addToCartContext = async (productId) => {
         try {
             const token = localStorage.getItem('userToken');
@@ -31,6 +31,7 @@ export function CartContextProvider({ children }) {
         try {
             const token = localStorage.getItem('userToken');
             const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/cart`, { headers: { Authorization: `Tariq__${token}` } });
+            setLoading(false);
             return data;
         } catch (error) {
             return error;
@@ -39,10 +40,12 @@ export function CartContextProvider({ children }) {
     const removeCartContext = async (productId) => {
         
         try {
+            setLoading(true);
             const token = localStorage.getItem('userToken');
             const { data } = await axios.patch(`${import.meta.env.VITE_API_URL}/cart/removeItem`, { productId },
                 { headers: { Authorization: `Tariq__${token}` } })
-            return data;
+                setLoading(true);
+                return data;
         }
         catch (error) {
             return error;
@@ -80,7 +83,7 @@ export function CartContextProvider({ children }) {
             });
         }
     }
-    return <CartContext.Provider value={{ addToCartContext, getCartContext, removeCartContext, increaseQuantityContext, decreaseQuantityContext }}>
+    return <CartContext.Provider value={{ addToCartContext, getCartContext, removeCartContext, increaseQuantityContext, decreaseQuantityContext ,isLoading,setLoading}}>
         {children}
     </CartContext.Provider>;
 

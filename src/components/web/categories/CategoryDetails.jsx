@@ -1,21 +1,28 @@
 import axios from 'axios';
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './categoryDetails.css'
 import { useQuery } from 'react-query';
 import { Link, useParams } from 'react-router-dom'
+import Loading from '../../Loading/Loading.jsx';
 
 export default function CategoryDetails() {
+    let [isLoading,setLoading] = useState(true);
     const { categoryId } = useParams();
-
     const getCategories = async () => {
         const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/products/category/${categoryId}`);
+        setLoading (false);
         return data.products;
     }
-    const { data, isLoading } = useQuery("category_details", getCategories);
+
+    
+    const { data } = useQuery("category_details", getCategories);
 
     if (isLoading) {
-        return <p>loading ...</p>
+        return <>
+        <Loading/>
+        </>
     }
+   
     return (
         <div className='products   py-5'>
             <div className="container">

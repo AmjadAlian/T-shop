@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import './product.css'
 import { useQuery } from 'react-query'
 import { useParams } from 'react-router-dom';
@@ -8,16 +8,19 @@ import { UserContext } from '../context/UserContext.jsx';
 import { useFormik } from 'formik';
 import { toast } from 'react-toastify';
 import Input from '../../pages/Input.jsx';
+import Loading from '../../Loading/Loading.jsx';
 export default function Product() {
     const { getProductQuantity, userToken } = useContext(UserContext);
     const { productId } = useParams();
     const { addToCartContext } = useContext(CartContext);
+    const [isLoading,setLoading] = useState(true);
     const initialValues = {
         comment: '',
         rating: '',
     };
     const onSubmit = async users => {
         const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/products/${productId}/review`, users, { headers: { Authorization: `Tariq__${userToken}` } });
+        
         if (data.message == 'success') {
             toast.success(' Review Posted Successfully!', {
                 position: "top-right",
@@ -29,7 +32,7 @@ export default function Product() {
                 progress: undefined,
                 theme: "dark",
             });
-
+            
         }
     };
     const formik = useFormik({
@@ -62,12 +65,15 @@ export default function Product() {
 
     const getProduct = async () => {
         const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/products/${productId}`);
+        setLoading(false);
         return data.product;
     }
-    const { data, isLoading } = useQuery("product_details", getProduct);
+    const { data } = useQuery("product_details", getProduct);
 
     if (isLoading) {
-        return <p>loading ...</p>
+        return <>
+        <Loading/>
+        </>
     }
 
     const addToCart = async (productId) => {

@@ -8,27 +8,27 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import { Link } from 'react-router-dom';
-import { useContext } from 'react';
-import { CartContext } from '../cart/CartContext.jsx';
+import { useState } from 'react';
+import Loading from '../../Loading/Loading.jsx';
 
 
 export default function Categories() {
+  const [isLoading, setLoading] = useState(true);
   const getCategories = async () => {
     const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/categories/active?limit=7`);
+    setLoading(false);
     return data;
   }
-  const { data, isLoading } = useQuery('web_categories', getCategories);
+  const { data } = useQuery('web_categories', getCategories);
   if (isLoading) {
     return (
       <>
-        <div className="loading vh-100 d-flex justify-content-center align-items-center bg-black z-2" >
-          <h2 className='z-3 text-white'>loading...</h2>
-        </div>
+        <Loading />
       </>
     )
   }
-  const x = useContext(CartContext);
-  
+
+
   return (
     <>
       <div className="container">
@@ -49,22 +49,22 @@ export default function Categories() {
             clickable: true,
             el: '.swiper-custom-pagination'
           }}
-          // onSlideChange={() => console.log('slide change')}
-          // onSwiper={(swiper) => console.log(swiper)}
+        // onSlideChange={() => console.log('slide change')}
+        // onSwiper={(swiper) => console.log(swiper)}
         >
-          {data?.categories.length? data?.categories.map((category) =>
+          {data?.categories.length ? data?.categories.map((category) =>
             <SwiperSlide key={category._id}>
-              <Link to = {`/products/category/${category._id}`}>
-              <div className="category">
-                <img src={category.image.secure_url} />
-              </div>
+              <Link to={`/products/category/${category._id}`}>
+                <div className="category">
+                  <img src={category.image.secure_url} />
+                </div>
               </Link>
             </SwiperSlide>
-            
+
           ) : '<h2> no category found</h2>'}
-          
+
         </Swiper>
-        
+
       </div>
     </>
   )

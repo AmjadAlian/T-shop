@@ -1,43 +1,42 @@
 import axios from 'axios'
 import './products.css';
-import { useQuery } from 'react-query';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../context/UserContext.jsx';
 import { CartContext } from '../cart/CartContext.jsx';
 import { useFormik } from 'formik';
 import Input from '../../pages/Input.jsx';
+import Loading from '../../Loading/Loading.jsx';
 export default function Products() {
     const { addToCartContext } = useContext(CartContext);
     const { getProductQuantity } = useContext(UserContext);
-
-    const location = useLocation();
-    const queryParams = new URLSearchParams(location.search);
-    let page = queryParams.get('page');
-
     const [data, setData] = useState();
     const [sort, setSort] = useState('');
     const [from, setFrom] = useState('5');
     const [to, setTo] = useState('300');
     const [name, setName] = useState('');
-
-    console.log(name);
+    const [pageNumber, setPageNumber] = useState(0);
+    const [currentPage, setCurrentPage] = useState(1);
+    let [loading, setLoading] = useState(true);
     const getAllProducts = async () => {
-        const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/products?page=${page}&limit=4&sort=${sort}&price[gte]=${from}&price[lte]=${to}&search=${name}`);
+        if (name != '') {
+            setCurrentPage(1);
+        }
+        const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/products?page=${currentPage}&limit=4&sort=${sort}&price[gte]=${from}&price[lte]=${to}&search=${name}`);
         setData(data);
+        setPageNumber(Math.ceil(data.total / 4));
+        setLoading(false);
     }
     const initialValues = {
-        from: '',
-        to: '',
+        from: '5',
+        to: '250',
     };
-
     const onSubmit = (e) => {
         setFrom(e.from);
         setTo(e.to);
     }
     const formik = useFormik({
         initialValues,
-
         onSubmit,
     });
     const inputs = [
@@ -59,14 +58,6 @@ export default function Products() {
     const renderInput = inputs.map((ele, index) =>
         <Input type={ele.type} key={index} name={ele.name} id={ele.id} value={ele.value} placeholder={ele.name} onChange={formik.handleChange} errors={formik.errors} onBlur={formik.handleBlur} touched={formik.touched} />
     );
-
-    useEffect(() => {
-        getAllProducts();
-    }, [page, sort, from && to]);
-    const { isLoading } = useQuery('products', getAllProducts);
-    if (isLoading) {
-        return <h2>... loading</h2>
-    }
     const addToCart = async (productId) => {
         const res = await addToCartContext(productId);
         getProductQuantity();
@@ -80,8 +71,24 @@ export default function Products() {
     }
     const handelSearch = (e) => {
         e.preventDefault();
-        getAllProducts();
+
     }
+    const handelPage = (index) => {
+        setCurrentPage(index);
+    }
+    useEffect(() => {
+        getAllProducts();
+    }, [currentPage, pageNumber, sort, name]);
+
+
+    if (loading) {
+        return (
+            <>
+                <Loading />
+            </>
+        );
+    }
+
     return (
         <>
             <div className="all-products w-100 my-5">
@@ -143,8 +150,8 @@ export default function Products() {
                     <nav aria-label="Page navigation example ">
                         <ul className="pagination d-flex justify-content-center mt-4">
                             <li className="page-item"><a className="page-link text-dark" href="#">Previous</a></li>
-                            {Array.from({ length: data?.total / data?.page }).map((_, index) => (
-                                <li key={index} className="page-item"><Link className="page-link text-dark" to={`?page=${index + 1}&finalPrice=400`}>{index + 1}</Link></li>
+                            {Array.from({ length: pageNumber }).map((_, index) => (
+                                <li key={index} className="page-item"><button className="page-link text-dark" onClick={() => handelPage(index + 1)}>{index + 1}</button></li>
                             ))}
                             <li className="page-item "><a className="page-link text-dark" href="#">Next</a></li>
                         </ul>

@@ -19,12 +19,17 @@ import UserContact from "../components/web/profile/UserContact.jsx";
 import Order from "../components/web/profile/Order.jsx";
 import CreateOrder from "../components/web/profile/createOrder.jsx";
 import Products from "../components/web/products/Products.jsx";
+import Loading from "../components/Loading/Loading.jsx";
 
 export const router = createBrowserRouter([
     {
         path: '/',
         element: <Layout />,
         children: [
+            {
+                path:'loading',
+                element:<Loading/>
+            },
             {
                 path: 'register',
                 element: <Register />

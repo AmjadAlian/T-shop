@@ -1,19 +1,21 @@
 import axios from 'axios';
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { UserContext } from '../context/UserContext.jsx';
 import { useQuery } from 'react-query';
+import Loading from '../../Loading/Loading.jsx';
 
 export default function Order() {
     let { userToken } = useContext(UserContext);
+    let [isLoading,setLoading] = useState(true);
     const getOrders = async () => {
         const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/order`, { headers: { authorization: `Tariq__${userToken}` } });
-        
+        setLoading(false);
         return data.orders;
 
     }
-    const { data, isLoading } = useQuery('orders', getOrders);
+    const { data } = useQuery('orders', getOrders);
     if (isLoading) {
-        return <h2>...loading</h2>
+        return <Loading/>
     }
     return (
         <>
