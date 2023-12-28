@@ -153,7 +153,7 @@ export default function Products() {
                             {Array.from({ length: pageNumber }).map((_, index) => (
                                 <li key={index} className="page-item"><button className="page-link text-dark" onClick={() => handelPage(index + 1)}>{index + 1}</button></li>
                             ))}
-                            <li className="page-item "><a className="page-link text-dark" href="#">Next</a></li>
+                            <li className="page-item "><button className="page-link text-dark" href="#" >Next</button></li>
                         </ul>
                     </nav>
                 </div>

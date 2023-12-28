@@ -1,3 +1,5 @@
+
+
 .loader-loading {
     width: 48px;
     height: 48px;
@@ -7,7 +9,8 @@
     border-right: 4px solid transparent;
     box-sizing: border-box;
     animation: rotation 1s linear infinite;
-  }
+    -webkit-animation: rotation 1s linear infinite;
+}
   .loader-loading::after {
     content: '';  
     box-sizing: border-box;

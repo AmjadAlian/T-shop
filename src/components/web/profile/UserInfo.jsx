@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { UserContext } from '../context/UserContext.jsx';
 
 export default function UserInfo() {
-    let { userData, loading } = useContext(UserContext);
+    let { userData, loading,cartQuantity,ordersNumber } = useContext(UserContext);
 
     if (loading) {
         return <h2>... loading</h2>
@@ -113,15 +113,15 @@ export default function UserInfo() {
                                         <div className="col">
                                             <div className="card-profile-stats d-flex justify-content-center mt-md-5">
                                                 <div>
-                                                    <span className="heading">22</span>
-                                                    <span className="description">Friends</span>
+                                                    <span className="heading">{cartQuantity}</span>
+                                                    <span className="description">Products In Cart</span>
                                                 </div>
                                                 <div>
-                                                    <span className="heading">10</span>
-                                                    <span className="description">Photos</span>
+                                                    <span className="heading">{ordersNumber}</span>
+                                                    <span className="description">Orders</span>
                                                 </div>
                                                 <div>
-                                                    <span className="heading">89</span>
+                                                    <span className="heading">50</span>
                                                     <span className="description">Comments</span>
                                                 </div>
                                             </div>
