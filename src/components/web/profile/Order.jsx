@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { UserContext } from '../context/UserContext.jsx';
 import { useQuery } from 'react-query';
 import Loading from '../../Loading/Loading.jsx';
@@ -11,12 +11,12 @@ export default function Order() {
         const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/order`, { headers: { authorization: `Tariq__${userToken}` } });
         setLoading(false);
         return data.orders;
-
     }
     const { data } = useQuery('orders', getOrders);
     if (isLoading) {
         return <Loading/>
     }
+    
     return (
         <>
             {data ? (data.map((product, index) =>

@@ -11,7 +11,7 @@ export default function Cart() {
     const [data, setData] = useState();
     const navigate = useNavigate();
     const { getCartContext, removeCartContext, isLoading, setLoading, increaseQuantityContext, decreaseQuantityContext } = useContext(CartContext);
-    const { getProductQuantity, userToken, cartQuantity } = useContext(UserContext);
+    const { getProductQuantity, userToken, cartQuantity ,getOrders} = useContext(UserContext);
 
 
     const getCard = async () => {

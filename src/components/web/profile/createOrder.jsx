@@ -73,7 +73,7 @@ export default function CreateOrder() {
                     <h2 className='text-center mb-4'>Create Order</h2>
                     <form onSubmit={formik.handleSubmit}>
                         {renderInput}
-                        <button type='submit' className="btn form-control" disabled={!formik.isValid || cartQuantity == 0}>Submit</button>
+                        <button type='submit' className="btn form-control"  disabled={!formik.isValid || cartQuantity == 0}>Submit</button>
                     </form>
                 </div>
             </div>

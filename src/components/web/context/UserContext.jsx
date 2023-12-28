@@ -23,8 +23,6 @@ export function UserContextProvider({ children }) {
         getProductQuantity();
         getUserData();
         getOrders();
-
-
     }, [userToken]);
     const getOrders = async () => {
         const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/order`, { headers: { authorization: `Tariq__${userToken}` } });

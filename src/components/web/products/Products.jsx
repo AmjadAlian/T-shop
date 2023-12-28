@@ -12,8 +12,8 @@ export default function Products() {
     const { getProductQuantity } = useContext(UserContext);
     const [data, setData] = useState();
     const [sort, setSort] = useState('');
-    const [from, setFrom] = useState('5');
-    const [to, setTo] = useState('300');
+    const [from, setFrom] = useState(0);
+    const [to, setTo] = useState(250);
     const [name, setName] = useState('');
     const [pageNumber, setPageNumber] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
@@ -32,8 +32,10 @@ export default function Products() {
         to: '250',
     };
     const onSubmit = (e) => {
+        
         setFrom(e.from);
         setTo(e.to);
+        console.log(e)
     }
     const formik = useFormik({
         initialValues,
@@ -49,7 +51,7 @@ export default function Products() {
         },
         {
             title: 'to',
-            id: "lowPrice",
+            id: "to",
             type: 'text',
             name: 'to',
             value: formik.values.to
@@ -78,7 +80,7 @@ export default function Products() {
     }
     useEffect(() => {
         getAllProducts();
-    }, [currentPage, pageNumber, sort, name]);
+    }, [currentPage, pageNumber, sort, name,from|to]);
 
 
     if (loading) {
