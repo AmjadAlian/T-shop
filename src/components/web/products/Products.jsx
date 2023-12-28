@@ -35,7 +35,6 @@ export default function Products() {
         
         setFrom(e.from);
         setTo(e.to);
-        console.log(e)
     }
     const formik = useFormik({
         initialValues,
